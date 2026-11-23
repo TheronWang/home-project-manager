@@ -539,12 +539,13 @@ function sessionFolder(app, p, date) {
   return byTerm && TERMS.length ? `${meetings}/${semesterOf(date)}` : meetings;
 }
 
-// A session's window: the previous session, and tasks checked off from that day through this one.
+// A session's window: tasks checked off after the previous session's day, through this one.
+// Tasks done on the previous session's day belong to that session, not this one.
 // Done dates don't change, so once the session day has passed the list is effectively fixed.
 function sessionContext(p, date) {
   const day = date.clone().startOf("day");
   const prev = p.entries.find(e => e.kind === "meeting" && e.date.isBefore(day));
-  const since = prev ? prev.date.clone().startOf("day") : day.clone().subtract(STALE_DAYS, "days");
+  const since = prev ? prev.date.clone().startOf("day").add(1, "day") : day.clone().subtract(STALE_DAYS, "days");
   const done = p.entries.filter(e => e.kind === "done" && !e.date.isBefore(since) && !e.date.isAfter(day))
     .flatMap(e => e.tasks).sort((a, b) => a.doneOn.localeCompare(b.doneOn));
   return { prev, since, done };
