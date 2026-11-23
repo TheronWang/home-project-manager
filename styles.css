@@ -455,3 +455,9 @@
   font-size: 0.72em; font-weight: 700; color: #f472b6; background: color-mix(in srgb, #f472b6 14%, transparent);
 }
 .hp-bar-actions { display: flex; gap: 4px; }
+
+/* Settings: session template editor */
+.hp-template-input {
+  width: 100%;
+  font-family: var(--font-monospace);
+}

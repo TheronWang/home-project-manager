@@ -1139,7 +1139,7 @@ class PanelView extends MarkdownRenderChild {
     const stats = el(root, "div", "hp-stats");
     const stat = (key, n, label, ic, color) => {
       const c = el(stats, "div", "hp-stat" + (this.st.focus === key ? " is-active" : "") + (key ? " is-clickable" : ""));
-      c.style.setProperty("--hp-accent", color);
+      c.setCssProps({ "--hp-accent": color });
       const top = el(c, "div", "hp-stat-top");
       icon(top, ic);
       el(top, "span", "hp-stat-n", String(n));
@@ -1166,7 +1166,7 @@ class PanelView extends MarkdownRenderChild {
     if (!areas.includes(this.st.area)) this.st.area = "all";
     for (const a of areas) {
       const b = el(seg, "button", "hp-seg-btn" + (this.st.area === a ? " is-active" : ""), a === "all" ? "All" : AREAS[a].label);
-      if (a !== "all") b.style.setProperty("--hp-accent", AREAS[a].color);
+      if (a !== "all") b.setCssProps({ "--hp-accent": AREAS[a].color });
       b.addEventListener("click", () => this.update({ area: a }));
     }
     const sort = el(head, "div", "hp-seg");
@@ -1214,7 +1214,7 @@ class PanelView extends MarkdownRenderChild {
   renderCard(grid, p, sortable = false) {
     const area = AREAS[p.area];
     const card = el(grid, "div", `hp-card is-${p.health} status-${p.status}`);
-    card.style.setProperty("--hp-accent", area.color);
+    card.setCssProps({ "--hp-accent": area.color });
     card.addEventListener("click", e => openFile(this.app, p.file, e));
     if (sortable) this.makeSortable(card, p);
 
@@ -1242,7 +1242,7 @@ class PanelView extends MarkdownRenderChild {
       const line = el(last, "div", "hp-last-meta");
       this.authorBadge(line, e.author);
       const k = el(line, "span", "hp-kind-mini");
-      k.style.setProperty("--hp-kind", KINDS[e.kind].color);
+      k.setCssProps({ "--hp-kind": KINDS[e.kind].color });
       icon(k, KINDS[e.kind].icon);
       el(line, "span", "hp-time", relTime(e));
       const text = el(last, "div", "hp-last-text", "…");
@@ -1468,7 +1468,7 @@ class PanelView extends MarkdownRenderChild {
     const max = Math.max(1, ...counts);
     counts.forEach((c, i) => {
       const b = el(wrap, "span", "hp-spark-bar" + (c ? "" : " is-zero"));
-      b.style.height = `${Math.max(12, (c / max) * 100)}%`;
+      b.setCssStyles({ height: `${Math.max(12, (c / max) * 100)}%` });
       b.setAttribute("aria-label", `Week of ${start.clone().add(i, "weeks").format("MMM D")}: ${c}`);
     });
     return wrap;
@@ -1476,7 +1476,7 @@ class PanelView extends MarkdownRenderChild {
 
   authorBadge(parent, author) {
     const a = el(parent, "span", "hp-author", author);
-    a.style.setProperty("--hp-author", authorColor(author));
+    a.setCssProps({ "--hp-author": authorColor(author) });
     return a;
   }
 
@@ -1490,7 +1490,7 @@ class PanelView extends MarkdownRenderChild {
       const seg = el(head, "div", "hp-seg");
       for (const a of authors) {
         const b = el(seg, "button", "hp-seg-btn" + (this.st.feedAuthor === a ? " is-active" : ""), a === "all" ? "All" : a);
-        if (a !== "all") b.style.setProperty("--hp-accent", authorColor(a));
+        if (a !== "all") b.setCssProps({ "--hp-accent": authorColor(a) });
         b.addEventListener("click", () => this.update({ feedAuthor: a }));
       }
     }
@@ -1526,7 +1526,7 @@ class PanelView extends MarkdownRenderChild {
   renderEntry(parent, e, showProject) {
     const kind = KINDS[e.kind];
     const item = el(parent, "div", `hp-entry kind-${e.kind}`);
-    item.style.setProperty("--hp-kind", kind.color);
+    item.setCssProps({ "--hp-kind": kind.color });
     const rail = el(item, "div", "hp-entry-rail");
     const dot = el(rail, "span", "hp-entry-dot");
     setIcon(dot, kind.icon);
@@ -1538,7 +1538,7 @@ class PanelView extends MarkdownRenderChild {
     if (showProject) {
       for (const p of e.primary) {
         const chip = el(meta, "span", "hp-proj-chip", p.name);
-        chip.style.setProperty("--hp-accent", AREAS[p.area].color);
+        chip.setCssProps({ "--hp-accent": AREAS[p.area].color });
         chip.addEventListener("click", ev => { ev.stopPropagation(); openFile(this.app, p.file, ev); });
       }
     }
@@ -1586,7 +1586,7 @@ class PanelView extends MarkdownRenderChild {
       return;
     }
     const area = AREAS[p.area];
-    root.style.setProperty("--hp-accent", area.color);
+    root.setCssProps({ "--hp-accent": area.color });
     const scope = projectScope(this.app, p);
     const tasks = countTasks(this.app, scope.taskFiles);
     const children = data.projects.filter(c => c.parent.toLowerCase() === p.name.toLowerCase());
@@ -1631,7 +1631,7 @@ class PanelView extends MarkdownRenderChild {
     const stats = el(root, "div", "hp-stats hp-page-stats");
     const stat = (value, label, ic, color, tab) => {
       const c = el(stats, "div", "hp-stat" + (tab ? " is-clickable" : "") + (tab && this.tab() === tab ? " is-active" : ""));
-      c.style.setProperty("--hp-accent", color);
+      c.setCssProps({ "--hp-accent": color });
       const t = el(c, "div", "hp-stat-top");
       icon(t, ic);
       el(t, "span", "hp-stat-n" + (typeof value === "string" ? " is-text" : ""), String(value));
@@ -1779,7 +1779,7 @@ class PanelView extends MarkdownRenderChild {
       // On a program page, say which workstream each meeting belongs to.
       for (const q of (m.entry ? m.entry.primary : []).filter(q => q !== p)) {
         const chip = el(meta, "span", "hp-proj-chip", q.name);
-        chip.style.setProperty("--hp-accent", AREAS[q.area].color);
+        chip.setCssProps({ "--hp-accent": AREAS[q.area].color });
       }
       const counts = el(meta, "span", "hp-meeting-counts");
       const t = countTasks(this.app, [m.file]);
@@ -1849,7 +1849,7 @@ class PanelView extends MarkdownRenderChild {
       el(root, "div", "hp-empty", `${block} needs project: "[[Name]]" in this note's frontmatter.`);
       return null;
     }
-    root.style.setProperty("--hp-accent", AREAS[p.area].color);
+    root.setCssProps({ "--hp-accent": AREAS[p.area].color });
     const nm = file && file.basename.match(MEETING_NAME);
     const asOf = (parseDate(fm.date) || (nm && parseDate(nm[1])) || { m: moment() }).m.clone().endOf("day");
     return { root, p, asOf };
@@ -1923,7 +1923,7 @@ class PanelView extends MarkdownRenderChild {
       el(root, "div", "hp-empty", "project-updates only works inside a hub note with type: project (or program).");
       return;
     }
-    root.style.setProperty("--hp-accent", AREAS[p.area].color);
+    root.setCssProps({ "--hp-accent": AREAS[p.area].color });
     const head = el(root, "div", "hp-section-head");
     el(head, "h4", "hp-section-title", `${p.entries.length} update${p.entries.length === 1 ? "" : "s"}`);
     const meta = el(head, "div", "hp-card-meta");
@@ -1992,7 +1992,7 @@ class HomeSettingTab extends PluginSettingTab {
       const row = new Setting(containerEl).setClass("hp-area-setting");
       const field = (ph, key, w) => row.addText(t => {
         t.setPlaceholder(ph).setValue(a[key] || "").onChange(v => { a[key] = v.trim(); save(); });
-        t.inputEl.style.width = w;
+        t.inputEl.setCssStyles({ width: w });
       });
       field("id", "id", "7em");
       field("Label", "label", "8em");
@@ -2028,8 +2028,7 @@ class HomeSettingTab extends PluginSettingTab {
       .addTextArea(t => {
         t.setValue(st.sessionTemplate || DEFAULT_TEMPLATE).onChange(v => { st.sessionTemplate = v; save(); });
         t.inputEl.rows = 14;
-        t.inputEl.style.width = "100%";
-        t.inputEl.style.fontFamily = "var(--font-monospace)";
+        t.inputEl.addClass("hp-template-input");
       })
       .addExtraButton(b => b.setIcon("rotate-ccw").setTooltip("Restore default").onClick(() => {
         st.sessionTemplate = DEFAULT_TEMPLATE;
