@@ -2,3 +2,10 @@ node_modules/
 data.json
 .DS_Store
 *.zip
+
+# Sample vault: the plugin copy and Obsidian's window state are rebuilt locally
+sample/.obsidian/plugins/home-project-manager/main.js
+sample/.obsidian/plugins/home-project-manager/manifest.json
+sample/.obsidian/plugins/home-project-manager/styles.css
+sample/.obsidian/workspace*.json
+!sample/.obsidian/plugins/home-project-manager/data.json

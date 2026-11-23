@@ -11,9 +11,10 @@
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/github/license/TheronWang/home-project-manager?style=flat-square"></a>
 </p>
 
-<!-- Screenshot: add docs/home.png (the Home dashboard) and uncomment.
-<p align="center"><img src="docs/home.png" alt="The Home dashboard: project cards, an activity chart and the activity feed" width="900"></p>
--->
+<p align="center">
+  <img src="docs/tour.gif" alt="A tour of the plugin: the Home dashboard, filtering projects by area, a project page with its Activity, Meetings and Tasks tabs, the Log dialog, and a session note" width="900">
+</p>
+<p align="center"><sub>Every screenshot comes from the <a href="#try-the-sample-vault">sample vault</a>; all people and projects in it are fictional.</sub></p>
 
 ---
 
@@ -21,6 +22,7 @@
 
 - [Features](#features)
 - [Quick start](#quick-start)
+- [Try the sample vault](#try-the-sample-vault)
 - [Installation](#installation)
 - [How it works](#how-it-works)
 - [Code blocks](#code-blocks)
@@ -40,12 +42,24 @@
 - 📦 **Archive and restore:** close a project as done or stopped, and its folder moves to your archive. Links keep working.
 - 🔓 **No lock-in:** no database and no hidden state. Uninstall the plugin and every note is still plain, readable Markdown.
 
-<!-- Screenshots: add docs/project.png (a project page) and docs/session.png (a session note) and uncomment.
-<p align="center">
-  <img src="docs/project.png" alt="A project page with the Activity, Meetings, Tasks and Notes tabs" width="49%">
-  <img src="docs/session.png" alt="A session note with live Done since last time and Still open lists" width="49%">
-</p>
--->
+<table>
+  <tr>
+    <td width="50%"><img src="docs/home.png" alt="The Home dashboard with stat tiles, project cards and the activity feed"></td>
+    <td width="50%"><img src="docs/project.png" alt="A project page with stats and the Activity tab"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Home dashboard:</b> every project, flags and one feed</sub></td>
+    <td align="center"><sub><b>Project page:</b> stats, activity and tabs</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/session.png" alt="A session note listing tasks done since the last meeting and tasks still open"></td>
+    <td width="50%"><img src="docs/log.png" alt="The Log dialog in Session note mode"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub><b>Session note:</b> live "Done since last time" and "Still open"</sub></td>
+    <td align="center"><sub><b>Log dialog:</b> quick update, session note or dated note</sub></td>
+  </tr>
+</table>
 
 ## Quick start
 
@@ -59,6 +73,21 @@
 5. Open **Settings → Home Project Manager** to match your own folders and areas.
 
 Already have projects? Add `type: project` to the frontmatter of each project's main note, and they appear on the dashboard.
+
+## Try the sample vault
+
+The [`sample/`](sample) folder is a small vault with seven fictional projects, a few months of updates from `me`, `claude` and `codex`, weekly meetings and an archived project. It's the quickest way to see what the plugin does before pointing it at your own notes.
+
+```bash
+git clone https://github.com/TheronWang/home-project-manager.git
+cd home-project-manager
+node scripts/build-sample.mjs   # refreshes the dates and installs the plugin into sample/
+```
+
+Then in Obsidian choose **Open another vault → Open folder as vault**, pick `sample/`, trust the vault when asked, and open **Home**.
+
+> [!NOTE]
+> The dates in `sample/` are relative to the last time `build-sample.mjs` ran. Run it again whenever you want "today" to be today.
 
 ## Installation
 
