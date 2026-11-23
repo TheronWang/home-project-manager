@@ -1,0 +1,9 @@
+{
+  "id": "home-project-manager",
+  "name": "Home Project Manager",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "A home dashboard and project pages built from plain notes: an activity feed, session notes that carry tasks forward, and an update format that coding agents can write to.",
+  "author": "Theron",
+  "isDesktopOnly": false
+}
